@@ -30,7 +30,6 @@ Go to your favorite browser and go to:
 
 ```
 http://0.0.0.0:8000/core/dashboard/
-
 ```
 
 By @DDBCDVD
