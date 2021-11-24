@@ -1,0 +1,73 @@
+{% extends "create_edit_template.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+      <div class="card card-default">
+        <div class="card-header">
+          <a class="btn btn-outline-primary btn-lg" href="{% url 'ListCompany' %}"> Volver</a>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <form method="post" action="." enctype="multipart/form-data" class="validations">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="{{ action }}">
+              <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="form-group">
+                    <label for="{{form.name.name}}">{{form.name.label}}</label>
+                    {{form.name|add_class:'form-control'|attr:'placeholder: Razón Social'}}
+                  </div>
+                </div>
+                <div class="col-md-4 col-md-offset-2"></div>
+                <div class="col-md-2 col-md-offset-2">
+                  <div class="form-group">
+                      <label for="{{form.rif.name}}">{{form.rif.label}}</label>
+                      {{form.rif|add_class:'form-control'|attr:'placeholder: Rif'}}
+                  </div>
+              </div>
+                <div class="col-md-2 col-md-offset-2">
+                    <div class="form-group">
+                        <label for="{{form.society.name}}">{{form.society.label}}</label>
+                        {{form.society|add_class:'form-control'|attr:'placeholder: Sociedad'}}
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-2">
+                    <div class="form-group">
+                        <label for="{{form.company_image.name}}">{{form.company_image.label}}</label>
+                        {{form.company_image|add_class:'form-control'}}
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-2">
+                    <div class="form-group">
+                        <label for="{{form.web_site.name}}">{{form.web_site.label}}</label>
+                        {{form.web_site|add_class:'form-control'|attr:'placeholder: Sitio Web'}}
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-2"></div>
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="form-group">
+                    <label for="{{form.phone1.name}}">{{form.phone1.label}}</label>
+                    {{form.phone1|add_class:'form-control'|attr:'placeholder: Telefono Principal'}}
+                  </div>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="form-group">
+                    <label for="{{form.phone2.name}}">{{form.phone2.label}}</label>
+                    {{form.phone2|add_class:'form-control'|attr:'placeholder: Otro Telefono'}}
+                  </div>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-outline-success btn-icon-split btn-lg">Guardar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock %}

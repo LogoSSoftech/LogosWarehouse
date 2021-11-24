@@ -1,0 +1,54 @@
+{% extends "detail_template.html" %}
+{% block button_back %}
+
+<div class="card-header ">
+    <a href="{% url 'ListProduct' %}" class="btn btn-outline-primary btn-lg">
+    <span class="text">Volver</span>
+    </a>
+</div>
+{% endblock %}
+
+{% block table %}
+<thead>
+    <tr>
+        <td>Unidad de Medida</td>
+        <td>Cantidad por artículo</td>
+        <td>Tipo</td>
+        <td>Imagen de Producto</td>
+        <td>Descripción</td>
+        {% if user.is_staff %}
+            <td>Usuario creador</td>
+            <td>Fecha Creación</td>
+            <td>Ultimo usuario en modificar</td>
+            <td>Fecha Modificación</td>
+        {% endif %}
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>
+            {% if object.measure_id %}
+                <a href="{% url 'DetailMeasurementUnit' object.measure_id %}" >{{object.measure_id.name}}</a>
+            {% else %}
+                N/A
+            {% endif %}
+        </td>
+        <td>{{product.article_qty}}</td>
+        <td>{{product.product_type}}</td>
+        <td>
+            <img src="/media/{{object.product_image}}" class="img-circle elevation-2" style="width: 50px; height: 50px;" >
+        </td>
+        <td>{{object.description}}</td>
+        {% if user.is_staff %}
+            <td>{{object.user_creator.first_name}} {{object.user_creator.last_name}}</td>
+            <td>{{object.date_created}}</td>
+            <td>{{object.user_updater.first_name}} {{object.user_updater.last_name}}</td>
+            <td>{{object.date_updated}}</td>
+        {% endif %}
+    </tr>
+</tbody>
+{% endblock %}
+
+{% block lines %}
+    {% include "products/lines/Products_Lines.html" %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "pattern_template.html" %}
+{% block header %}
+
+    {% include "headers/delete_header.html" %}
+
+{% endblock %}
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <form method="post">
+                    {% csrf_token %}
+                    <h3>Está seguro que desea borrar {{object.first_name}} {{object.last_name}} ?</h3>
+                </div>
+                <div class="card-header">
+                    <button class="btn btn-outline-danger btn-lg"  type="submit"> Si, Borrar</button>
+                    <a class="btn btn-outline-primary btn-lg" href="{% url 'ListUser' %}"> Cancelar</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block javascript %}
+
+    {% include "js/delete_js.html" %}
+
+{% endblock %}

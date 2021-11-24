@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  {% block header %}
+
+  {% endblock %}
+
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  {% include "navbars/top_navbar.html" %}
+
+  <!-- Main Sidebar Container -->
+  {% include "sidebars/sidebar.html" %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      {% include "headers/page_header.html" %}
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        {% block content %}
+
+
+        {% endblock %}
+
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+    {% include "footers/footer.html" %}
+
+</div>
+<!-- ./wrapper -->
+{% block javascript %}
+
+
+{% endblock %}
+
+{% load sweetify %}
+{% sweetify %}
+</body>
+</html>

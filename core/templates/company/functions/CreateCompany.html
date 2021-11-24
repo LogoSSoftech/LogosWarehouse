@@ -1,0 +1,87 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "headers/create_edit_header.html" %}
+    <!-- Sweetalert2 -->
+    <script src="{% static 'lib/sweetalert2-9.10.0/sweetalert2.all.min.js' %}"></script>
+    <link href="{% static 'css/logos.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="logos-login-container">
+        <div class="row justify-content-center">
+          <div class="col-xl-50 col-lg-4 col-md-50">
+              <div class="login-logo">
+                  <a href="#"><b>Logos</b>ERP</a>
+                </div>
+                 <div>
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Registro de Empresa</h1>
+                  </div>
+                  <hr>
+                  <form method="post" action="." enctype="multipart/form-data" class="validations">
+                    <input type="hidden" name="action" value="{{ action }}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{form.name|add_class:'form-control'|attr:'placeholder: Razón Social'}}
+                      </div>
+                    <div class="form-group row">
+                      <div class="col-sm-4 mb-3 mb-sm-0">
+                        {{form.rif_type|add_class:'form-control'|attr:'placeholder: Tipo'}}
+                      </div>
+                      <div class="col-sm-6">
+                        {{form.rif|add_class:'form-control'|attr:'placeholder: Rif'}}
+                      </div>
+                      <div class="col-sm-2">
+                        {{form.society|add_class:'form-control'|attr:'placeholder: Sociedad'}}
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{form.company_image.name}}">{{form.company_image.label}}</label>
+                        {{form.company_image|add_class:'form-control'}}
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-sm-6 mb-3 mb-sm-0">
+                        {{form.email|add_class:'form-control'|attr:'placeholder: Correo Electrónico'}}
+                      </div>
+                      <div class="col-sm-6">
+                        {{form.web_site|add_class:'form-control'|attr:'placeholder: Sitio Web'}}
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-sm-6 mb-3 mb-sm-0">
+                        {{form.phone1|add_class:'form-control'|attr:'placeholder: Telefono Principal'}}
+                      </div>
+                      <div class="col-sm-6">
+                        {{form.phone2|add_class:'form-control'|attr:'placeholder: Otro Telefono'}}
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-outline-success">Registrar</button>
+                    <hr>
+                </div>
+              </div>
+        </div>
+      </div>
+    <script type="application/javascript">
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+    </script>
+</div>
+<!-- {% include "js/create_edit_js.html" %} -->
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% extends "detail_template.html" %}
+{% block button_back %}
+<div class="card-header ">
+    <a href="{% url 'ListStockLocation' %}" class="btn btn-outline-primary btn-lg">
+    <span class="text">Volver</span>
+    </a>
+</div>
+{% endblock %}
+
+{% block table %}
+<thead>
+    <tr>
+        <td>Tipo</td>
+        <td>Activo</td>
+        <td>Descripción</td>
+        {% if user.is_staff %}
+            <td>Usuario creador</td>
+            <td>Fecha Creación</td>
+            <td>Ultimo usuario en modificar</td>
+            <td>Fecha Modificación</td>
+        {% endif %}
+
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>{{object.location_type}}</td>
+        <td>{{object.active}}</td>
+        <td>{{object.description}}</td>
+        {% if user.is_staff %}
+            <td>{{object.user_creator.first_name}} {{object.user_creator.last_name}}</td>
+            <td>{{object.date_created}}</td>
+            <td>{{object.user_updater.first_name}} {{object.user_updater.last_name}}</td>
+            <td>{{object.date_updated}}</td>
+        {% endif %}
+    </tr>
+</tbody>
+{% endblock %}
+
+{% block lines %}
+    {% include "stock_location/lines/Stock_Location_Lines.html" %}
+    {% include "stock_move/lines/Move_Lines.html" %}
+{% endblock %}

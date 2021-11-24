@@ -1,0 +1,58 @@
+{% extends "list_template.html" %}
+{% block table %}
+<thead>
+  <tr>
+    <td>Código</td>
+    <td>Producto</td>
+    <td>Tipo de Producto</td>
+    <td>Piezas</td>
+    <td>Cantidad por Unidad</td>
+    <td>Medida</td>
+    <td>Ubicacion</td>
+    <td>Unidades Creadas??</td>
+    <td>Acciones</td>
+  </tr>
+</thead>
+<tbody>
+  {% for package in object_list %}
+  <tr>
+    <td>{{package.code}}</td>
+    <td>
+      <a href="{% url 'DetailProduct' package.product_id.id %}">{{package.product_id.name}}</a>
+    </td>
+    <td>{{package.product_id.product_type}}</td>
+    <td>{{package.pieces}}</td>
+    <td>{{package.unit_qty}}</td>
+    <td>
+      {% if package.product_id.measure_id %}
+          <a href="{% url 'DetailMeasurementUnit' package.product_id.measure_id.id %}" >{{package.product_id.measure_id.name}}</a>
+      {% else %}
+          N/A
+      {% endif %}
+    </td>
+    <td>{{package.location_id.name}}</td>
+    <td>{{package.units_created}}</td>
+    <td>
+      {% if not package.units_created %}
+        <a href="{% url 'EditProductPackage' package.id %}" class="btn btn-info btn-circle btn-lg">
+          <i class="far fa-edit"></i>
+        </a>
+      {% endif %}
+      <a href="{% url 'DetailProductPackage' package.id %}" class="btn btn-info btn-circle btn-lg">
+        <i class="fas fa-info-circle"></i>
+      </a>
+      {% if not product_unit.first_move %}
+      <a href="{% url 'DeleteProductPackage' package.id %}" class="btn btn-danger btn-circle btn-lg">
+        <i class="fas fa-trash"></i>
+      </a>
+      {% endif %}
+      {% if package.pieces > 0 and not package.units_created %}
+      <a href="{% url 'create_unit_package' package.id %}" class="btn btn-success btn-circle btn-lg">
+        <i class="fas fa-cubes"></i>
+      </a>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</tbody>
+{% endblock %}

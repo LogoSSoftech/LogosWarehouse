@@ -1,0 +1,36 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{lines_heading}}</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+
+        <table id="FullTable2" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td>Nombre</td>
+                    <td>Código</td>
+                    <td>Cantidad</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for unit_id in unit_ids %}
+                <tr>
+                    <td>
+                        <a href="{% url 'DetailProductUnit' unit_id.id %}">{{unit_id.name}}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'DetailProductUnit' unit_id.id %}">{{unit_id.code}}</a>
+                    </td>
+                    <td>{{unit_id.quantity}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>

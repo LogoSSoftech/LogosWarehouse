@@ -1,0 +1,62 @@
+{% extends "js/pattern_js.html" %}
+{% load static %}
+
+{% block js %}
+
+
+
+<!-- DataTables -->
+<script src="{% static 'lib/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'lib/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'lib/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<!-- Funciones Propias -->
+<script src="{% static 'js/logos_js.js' %}"></script>
+
+
+<!-- page script -->
+<script>
+  $(function () {
+    $("#MovesTable").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      "language": {
+        url :'{% static 'lib/datatables/spanish.txt' %}'
+      }
+    });
+
+    $("#FullTable1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      "language": {
+        url :'{% static 'lib/datatables/spanish.txt' %}'
+      },
+    });
+
+
+    $("#FullTable2").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      "language": {
+        url :'{% static 'lib/datatables/spanish.txt' %}'
+      }
+    });
+
+    $('#MinimalTable').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+      "language": {
+        url :'{% static 'lib/datatables/spanish.txt' %}'
+      }
+    });
+
+  });
+</script>
+
+
+{% endblock %}

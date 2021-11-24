@@ -1,0 +1,61 @@
+{% extends "pattern_template.html" %}
+{% block header %}
+    {% include "headers/report_header.html" %}
+{% endblock %}
+
+    {% block content %}
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Card-header -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form method="post" class="validations">
+                                            <div class="form-group">
+                                                <label>Rango de Fechas</label>
+                                                {{form.date_range}}
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                {% block report %}
+
+
+                                {% endblock %}
+
+                                {% block report_modal %}
+
+
+                                {% endblock %}
+                            </div>
+                        <!-- /.card-body -->
+                        </div>
+                    </div>
+                <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+    {% endblock %}
+
+
+{% block javascript %}
+
+    {% include "js/report_js.html" %}
+
+{% endblock %}
+
+
+
+
+
+
+
+

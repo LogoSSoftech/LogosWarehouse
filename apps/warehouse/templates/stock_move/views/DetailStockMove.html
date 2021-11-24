@@ -1,0 +1,93 @@
+{% extends "detail_template.html" %}
+{% block button_back %}
+<div class="card-header ">
+    <a href="{% url 'ListStockMove' %}" class="btn btn-outline-primary btn-lg">
+    <span class="text">Volver</span>
+    </a>
+    <!-- <h3 class="card-title">DataTable with minimal features & hover style</h3> -->
+</div>
+{% endblock %}
+{% block table %}
+<thead>
+    <tr>
+
+        {% if object.unit_id %}
+            <td>Cantidad</td>
+            <td>Cantidad Origen</td>
+            <td>Saldo nuevo Origen</td>
+            <td>Cantidad previa Destino</td>
+            <td>Saldo nuevo Destino</td>
+            <td>Cantidad previa Unidad</td>
+            <td>Saldo total Unidad</td>
+            <td>Unidad de Producto</td>
+            <td>Código Unidad</td>
+        {% endif %}
+        {% if object.package_id %}
+            <td>Piezas</td>
+            <td>Paquete</td>
+        {% endif %}
+        <td>Tipo de Producto</td>
+        <td>Medida</td>
+        <td>Tipo</td>
+        <td>Notas</td>
+        <td>Descripción</td>
+        <td>Fecha</td>
+        <td>Usuario</td>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+
+        {% if object.unit_id %}
+            <td>{{object.quantity}}</td>
+            <td>{{object.prev_qty_origin}}</td>
+            <td>{{object.balance_origin}}</td>
+            <td>{{object.prev_qty_dest}}</td>
+            <td>{{object.balance_dest}}</td>
+            <td>{{object.prev_qty}}</td>
+            <td>{{object.balance}}</td>
+            <td>
+                <a href="{% url 'DetailProductUnit' object.unit_id.id %}">{{object.unit_id.name}}</a>
+            </td>
+            <td>
+                <a href="{% url 'DetailProductUnit' object.unit_id.id %}">{{object.unit_id.code}}</a>
+            </td>
+        {% endif %}
+        {% if object.package_id %}
+            <td>{{object.pieces}}</td>
+            <td>
+                <a href="{% url 'DetailProductPackage' object.package_id.id %}">{{object.package_id.code}}</a>
+            </td>
+        {% endif %}
+        {% if object.unit_id %}
+            <td>
+                {{object.unit_id.product_id.product_type}}
+            </td>
+            <td>
+                {% if object.unit_id.product_id.measure_id %}
+                    <a href="{% url 'DetailMeasurementUnit' object.unit_id.product_id.measure_id.id %}" >{{object.unit_id.product_id.measure_id.name}}</a>
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+        {% endif %}
+        {% if object.package_id %}
+            <td>
+                {{object.package_id.product_id.product_type}}
+            </td>
+            <td>
+                {% if object.package_id.product_id.measure_id %}
+                    <a href="{% url 'DetailMeasurementUnit' object.package_id.product_id.measure_id.id %}" >{{object.package_id.product_id.measure_id.name}}</a>
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+        {% endif %}
+        <td>{{object.move_type}}</td>
+        <td>{{object.note}}</td>
+        <td>{{object.description}}</td>
+        <td>{{object.date}}</td>
+        <td>{{object.user_creator.first_name}} {{object.user_creator.last_name}}</td>
+    </tr>
+</tbody>
+{% endblock %}

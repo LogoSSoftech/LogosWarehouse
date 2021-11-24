@@ -1,0 +1,16 @@
+{% extends "headers/pattern_header.html" %}
+{% load static %}
+
+{% block header %}
+
+  <!-- SweetAlert2 -->
+
+  <script src="{% static 'lib/sweetalert2-9.10.0/sweetalert2.all.min.js' %}"></script>
+
+  <!-- DataTables -->
+
+  <link rel="stylesheet" href="{% static 'lib/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'lib/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+
+{% endblock %}
+

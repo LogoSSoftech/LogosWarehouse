@@ -1,0 +1,46 @@
+{% extends "pattern_template.html" %}
+  {% block header %}
+
+    {% include "headers/pattern_header.html" %}
+
+  {% endblock %}
+
+  {% block content %}
+
+  <div class="row">
+    {% include "dashboards/card_productos.html" %}
+    {% include "dashboards/card_movimientos.html" %}
+    {% include "dashboards/card_control_stock.html" %}
+    {% include "dashboards/card_reportes.html" %}
+  </div>
+  <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <figure class="highcharts-figure">
+              <div id="report_moves"> </div>
+              <p class="highcharts-description">
+                <center>{{ total_year_moves }} Movimientos durante el Año {{ year }}</center>
+              </p>
+          </figure>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  {% endblock %}
+
+  {% block javascript %}
+
+    {% include "js/dashboard_js.html" %}
+
+  {% endblock %}

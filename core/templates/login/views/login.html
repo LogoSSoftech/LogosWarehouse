@@ -1,0 +1,80 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% include "headers/create_edit_header.html" %}
+</head>
+<body>
+    <div class="logos-login-container">
+        <div class="row justify-content-center">
+          <div class="col-xl-50 col-lg-4 col-md-50">
+              <div class="login-logo">
+                  <a href="#"><b>Logos</b>ERP</a>
+                </div>
+                 <div>
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Bienvenido</h1>
+                  </div>
+                  <hr>
+                  <form method="post" class="validations">
+                    <input type="hidden" name="next" value="{{ next }}">
+                      {% csrf_token %}
+                    <div class="form-group">
+                      {{form.username|add_class:'form-control'|attr:'placeholder: Usuario'}}
+                    </div>
+                    <div class="form-group">
+                      {{form.password|add_class:'form-control'|attr:'placeholder: Contraseña'}}
+                    </div>
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox small">
+                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                        <label class="custom-control-label" for="customCheck">Recordarme</label>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-outline-primary">Ingresar</button>
+                    <hr>
+                    <a href="#" class="btn btn-google btn-user btn-block">
+                      <i class="fab fa-google fa-fw"></i> Entrar con Google
+                    </a>
+                    {% if not company %}
+                      <a href="{% url 'CreateCompany' %}" class="btn btn-facebook btn-user btn-block">
+                        <i class="fas fa-industry"></i> Registrar Empresa
+                      </a>
+                    {% endif %}
+                  </form>
+                  <hr>
+                  {% if company %}
+                    <div class="text-center">
+                      <a class="small" href="{% url 'RestorePassword' %}">Restablecer Contraseña</a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+        </div>
+      </div>
+      <script type="application/javascript">
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{ error }}\n';
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}\n';
+            {% endfor %}
+            Swal.fire({
+                title: 'Error!',
+                text: errors,
+                icon: 'error'
+            });
+        {% endif %}
+      </script>
+
+</div>
+{% load sweetify %}
+{% sweetify %}
+</body>
+</html>
+

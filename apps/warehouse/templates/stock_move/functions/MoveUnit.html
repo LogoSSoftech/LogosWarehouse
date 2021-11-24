@@ -1,0 +1,65 @@
+{% extends "create_edit_template.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+<section class="content">
+    <div class="container-fluid">
+      <div class="card card-default">
+            <div class="card-header">
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'ListStockMove' %}"> Volver</a>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <form method="post" class="validations">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="{{ action }}">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-2">
+                                <div class="form-group">
+                                    <label for="{{form.note.name}}">{{form.note.label}}</label>
+                                    {{form.note}}
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-md-offset-2">
+                                <div class="form-group">
+                                    <label for="{{form.unit_id.name}}">{{form.unit_id.label}}</label>
+                                    {{ form.unit_id|add_class:'form-control select2' }}
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group">
+                                    <label for="{{form.location_id.name}}">{{form.location_id.label}}</label>
+                                    {{form.location_id|add_class:'form-control select2'}}
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group">
+                                    <label for="{{form.location_dest_id.name}}">{{form.location_dest_id.label}}</label>
+                                    {{form.location_dest_id|add_class:'form-control select2'}}
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="form-group">
+                                    <label for="{{form.quantity.name}}">{{form.quantity.label}}</label>
+                                    {{form.quantity}}
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-md-offset-2">
+                                <div class="form-group">
+                                    <label for="{{form.description.name}}">{{form.description.label}}</label>
+                                    {{form.description}}
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-success btn-icon-split btn-lg">Mover</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+      </div>
+   </div>
+</section>
+{% endblock %}

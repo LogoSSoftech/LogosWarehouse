@@ -1,0 +1,60 @@
+{% extends "pattern_template.html" %}
+{% block header %}
+    {% include "headers/list_detail_header.html" %}
+{% endblock %}
+    {% block content %}
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Card-header -->
+                        <div class="card">
+                            <div class="card-header">
+                                {% for key, value in create_forms.items %}
+                                    <a href="{{ value.button_create }}" class="btn btn-outline-success btn-icon-split btn-lg">
+
+                                        <span class="text">{{ value.text }}</span>
+                                    </a>
+                                {% endfor %}
+                                {% for key, value in create_pckg.items %}
+                                    <button type="submit" class="btn btn-outline-secondary float-right btn-icon-split btn-lg disabled" id="create_pckg">
+                                        <span class="text">{{ value.text }}</span>
+                                    </button>
+                                {% endfor %}
+                            </div>
+                            <div class="card-body">
+                                {% block table %}
+
+
+                                {% endblock %}
+                            </div>
+                        <!-- /.card-body -->
+                        </div>
+                    </div>
+                <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+    {% endblock %}
+
+{% block javascript %}
+
+    {% include "js/list_detail_js.html" %}
+
+    {% block jstables %}
+
+    {% endblock %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

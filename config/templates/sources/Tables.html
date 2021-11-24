@@ -1,0 +1,26 @@
+{% extends "sources/PatternSources.html" %}
+{% load static %}
+
+{% block sources %}
+
+  <!-- DataTables -->
+
+  <link rel="stylesheet" href="{% static 'lib/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'lib/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'lib/datatables/jquery.dataTables.min.css' %}">
+  <link rel="stylesheet" href="{% static 'lib/datatables/select.dataTables.min.css' %}">
+
+
+
+
+<!-- DataTables -->
+<script src="{% static 'jquery/jquery-3.5.1.js' %}"></script>
+<script src="{% static 'lib/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'lib/datatables/dataTables.select.min.js' %}"></script>
+<script src="{% static 'lib/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'lib/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'lib/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+
+
+
+{% endblock %}

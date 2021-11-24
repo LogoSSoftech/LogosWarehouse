@@ -1,0 +1,125 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">{{move_heading}}</h1>
+      </a>
+    </div>
+  </div>
+  <div class="card-body">
+    <table id="MovesTable" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <td>Código</td>
+          <td>Origen</td>
+          <td>Destino</td>
+          <td>Cantidad del Movimiento</td>
+          {% if item_type == 'Unit' %}
+          <td>Cantidad previa en ubicación origen</td>
+          <td>Saldo nuevo en ubicación origen</td>
+          <td>Cantidad previa en ubicación Destino</td>
+          <td>Saldo nuevo en ubicación Destino</td>
+          {% endif %} {% if item_type == 'Unit' %}
+          <td>Cantidad total previa de la Unidad</td>
+          <td>Saldo total de la Unidad</td>
+          {% endif %}
+          <td>Tipo de Movimiento</td>
+          <td>Nota</td>
+          <td>Descripción</td>
+          <td>Fecha</td>
+          <td>Usuario</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for move in move_ids %}
+        <tr>
+          <td>
+            <a href="{% url 'DetailStockMove' move.id %}">{{move.code}}</a>
+          </td>
+          <td>
+            <a href="{% url 'DetailStockLocation' move.location_id.id %}">{{move.location_id.name}}</a>
+          </td>
+          <td>
+            <a href="{% url 'DetailStockLocation' move.location_dest_id.id %}">{{move.location_dest_id.name}}</a>
+          </td>
+
+          <td>{{move.quantity}}</td>
+          {% if item_type == 'Unit' %}
+          <td>{{move.prev_qty_origin}}</td>
+          <td>{{move.balance_origin}}</td>
+          <td>{{move.prev_qty_dest}}</td>
+          <td>{{move.balance_dest}}</td>
+          {% endif %} {% if item_type == 'Unit' %}
+          <td>{{move.prev_qty}}</td>
+          <td>{{move.balance}}</td>
+          {% endif %}
+          <td>{{move.move_type}}</td>
+          <td>{{move.note}}</td>
+          <td>{{move.description}}</td>
+          <td>{{move.date}}</td>
+          <td>{{object.user_creator.first_name}} {{object.user_creator.last_name}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% if move_pckg_ids %}
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">{{pckg_moves}}</h1>
+    </div>
+  </div>
+  <div class="card-body">
+    <table id="FullTable2" class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <td>Código</td>
+          <td>Paquete</td>
+          <td>Notas</td>
+          <td>Descripción</td>
+          <td>Piezas</td>
+          <td>Origen</td>
+          <td>Destino</td>
+          <td>Unidad de Medida</td>
+          <td>Tipo de Movimiento</td>
+          <td>Fecha</td>
+          <td>Usuario</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for move in move_pckg_ids %}
+        <tr>
+          <td>
+            <a href="{% url 'DetailStockMove' move.id %}">{{move.code}}</a>
+          </td>
+          <td>
+            <a href="{% url 'DetailProductPackage' move.package_id.id %}">{{move.package_id.code}}</a>
+          </td>
+          <td>{{move.note}}</td>
+          <td>{{move.description}}</td>
+          <td>{{move.pieces}}</td>
+          <td>
+            <a href="{% url 'DetailStockLocation' move.location_id.id %}">{{move.location_id.name}}</a>
+          </td>
+          <td>
+            <a href="{% url 'DetailStockLocation' move.location_dest_id.id %}">{{move.location_dest_id.name}}</a>
+          </td>
+          <td>
+            {% if object.product_id.measure_id %}
+                <a href="{% url 'DetailMeasurementUnit' object.product_id.measure_id.id %}" >{{object.product_id.measure_id.name}}</a>
+            {% else %}
+                N/A
+            {% endif %}
+          </td>
+          <td>{{move.move_type}}</td>
+          <td>{{move.date}}</td>
+          <td>{{object.user_creator.first_name}} {{object.user_creator.last_name}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,84 @@
+<script>
+
+let unit_ids = []; //Lista contenedora de ids de las unidades
+
+var FullTable = $("#ProductUnitTable").DataTable({
+    "responsive": true,
+    "autoWidth": false,
+    "language": {
+      url :'{% static 'lib/datatables/spanish.txt' %}'
+    },
+    ajax: {
+      url: window.location.pathname,
+      type: 'POST',
+      data: {
+        'action': 'datatable'
+      },
+      dataSrc: ""
+    },
+    columns: [
+      null,
+      { "data": "id" },
+      { "data": "code" },
+      ],
+    columnDefs : [
+      {
+        targets: [0],
+        render: function (data, type, row) {
+          var check = ' <input type="checkbox" name="state">'
+          return check;
+        },
+
+      },
+      {
+        targets: [ 1 ],
+        visible: false,
+        searchable: false
+      },
+    ],
+  });
+
+// Crear Paquetes con las unidades seleccionadas
+let units = []; //Lista contenedora de las unidades
+
+
+
+
+
+
+$('#ProductUnitTable tbody').on('click', 'input[name="state"]', function () {
+  $('.tooltip').remove();
+  var td = FullTable.cell($(this).closest('td, li')).index(),
+  rows = FullTable.row(td.row).data()
+
+  if( $(this).is(':checked') ){ // Agrega a la la lista de ids el id de la unidad seleccionada
+    units.push(rows);
+    unit_ids.push(rows.id);
+
+
+    $('#create_pckg').removeClass('disabled'); // Al agregar elementos, se habilita el botón
+  } else { // Elimina de la lista de idas la unidad que se seleccione
+    let index = units.indexOf(rows)
+    units.splice(index,1);
+    if (units.length == 0) {
+      $('#create_pckg').addClass('disabled');
+    }
+  }
+
+});
+// Botón crear unidades
+// Envía mediante ajax los ids de la lista
+$('#create_pckg').on('click', function(){
+  if ( $('#create_pckg').hasClass('disabled') )  { // Si el boton está deshabilitado no pasa nada
+  } else {
+
+
+    u2pckg_validate(units)
+
+
+  }
+});
+
+
+
+</script>

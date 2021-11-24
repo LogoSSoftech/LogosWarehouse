@@ -1,0 +1,52 @@
+{% extends "create_edit_template.html" %}
+{% load static %}
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+      <div class="card card-default">
+        <div class="card-header">
+          <a class="btn btn-outline-primary btn-lg" href="{% url 'ListMeasurementUnit' %}"> Volver</a>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <form method="post" class="validations">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="{{ action }}">
+              <div class="row">
+                <div class="col-md-6 col-md-offset-2">
+                  <div class="form-group">
+                    <label for="{{form.name.name}}">{{form.name.label}}</label>
+                    {{form.name}}
+                  </div>
+                </div>
+                <div class="col-md-6 col-md-offset-2">
+                    <div class="form-group">
+                        <label for="{{form.abbreviation.name}}">{{form.abbreviation.label}}</label>
+                        {{form.abbreviation}}
+                    </div>
+                </div>
+                <div class="col-md-12 col-md-offset-2">
+                  <div class="form-group">
+                    <label for="{{form.description.name}}">{{form.description.label}}</label>
+                    {{form.description}}
+                  </div>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="form-group">
+                    <label for="{{form.active.name}}">{{form.active.label}}</label>
+                    {{form.active}}
+                  </div>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-outline-success btn-icon-split btn-lg">Guardar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock %}

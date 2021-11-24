@@ -1,0 +1,31 @@
+{% extends "list_template.html" %}
+{% block table %}
+<thead>
+    <tr>
+        <td>Código</td>
+        <td>Nombre</td>
+        <td>Abreviatura</td>
+        <td>Acciones</td>
+    </tr>
+</thead>
+<tbody>
+    {% for measure in object_list %}
+    <tr>
+        <td>{{measure.code}}</td>
+        <td>{{measure.name}}</td>
+        <td>{{measure.abbreviation}}</td>
+        <td>
+            <a href="{% url 'EditMeasurementUnit' measure.id %}" class="btn btn-info btn-circle btn-lg" >
+                <i class="far fa-edit"></i>
+            </a>
+            <a href="{% url 'DetailMeasurementUnit' measure.id %}" class="btn btn-info btn-circle btn-lg">
+                <i class="fas fa-info-circle"></i>
+              </a>
+            <a href="{% url 'DeleteMeasurementUnit' measure.id %}" class="btn btn-danger btn-circle btn-lg">
+                <i class="fas fa-trash"></i>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+{% endblock %}

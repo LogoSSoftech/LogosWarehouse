@@ -1,0 +1,44 @@
+{% extends "list_template.html" %}
+{% block table %}
+<thead>
+    <tr>
+        <td>Código</td>
+        <td>Unidad de Producto</td>
+        <td>Código de la Unidad</td>
+        <td>Producto</td>
+        <td>Tipo de Producto</td>
+        <td>Cantidad</td>
+        <td>Ubicación</td>
+        <td>Unidad de Medida</td>
+        <td>Fecha Creación</td>
+    </tr>
+</thead>
+<tbody>
+    {% for stock_control in object_list %}
+    <tr>
+        <td>{{stock_control.code}}</td>
+        <td>
+            <a href="{% url 'DetailProductUnit' stock_control.unit_id.id %}">{{stock_control.unit_id.name}}</a>
+        </td>
+        <td>
+            <a href="{% url 'DetailProductUnit' stock_control.unit_id.id %}">{{stock_control.unit_id.code}}</a>
+        </td>
+        <td>{{stock_control.unit_id.product_id.name}}</td>
+        <td>{{stock_control.unit_id.product_id.product_type}}</td>
+
+        <td>{{stock_control.quantity}}</td>
+        <td>
+            <a href="{% url 'DetailStockLocation' stock_control.location_id.id %}">{{stock_control.location_id.name}}</a>
+        </td>
+        <td>
+            {% if stock_control.unit_id.product_id.measure_id %}
+                <a href="{% url 'DetailMeasurementUnit' stock_control.unit_id.product_id.measure_id.id %}" >{{stock_control.unit_id.product_id.measure_id.name}}</a>
+            {% else %}
+                N/A
+            {% endif %}
+        </td>
+        <td>{{stock_control.date}}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+{% endblock %}

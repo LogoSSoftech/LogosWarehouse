@@ -1,0 +1,54 @@
+{% extends "js/pattern_js.html" %}
+{% load static %}
+
+{% block js %}
+
+<!-- Select2 -->
+<script src="{% static 'lib/select2/js/select2.full.min.js' %}"></script>
+
+<!-- Funciones Propias -->
+<script src="{% static 'js/logos_js.js' %}"></script>
+
+<!-- Page script -->
+<script>
+
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+  })
+
+</script>
+
+<script>
+  $(function() {
+      $('.validations').on('submit', function(e) {
+          e.preventDefault();
+          var data_form = new FormData(this);
+          $.ajax({
+              url: window.location.pathname,
+              type: 'POST',
+              data: data_form,
+              datatype: 'json',
+              processData: false,
+              contentType: false,
+
+          }).done(function (data){
+            console.log(data);
+            if(!data.hasOwnProperty('error')){
+                location.href = '{{ success_url }}';
+                return false;
+            }
+            message_error(data.error);
+          }).fail(function (jqXHR, TextStatus, errorThrown){
+              alert(TextStatus + ' ' + errorThrown);
+          }).always(function (data){
+          });
+      });
+  });
+</script>
+
+
+
+
+{% endblock %}

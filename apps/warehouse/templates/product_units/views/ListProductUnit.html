@@ -1,0 +1,132 @@
+{% extends "Layouts/ListTemplate.html" %}
+{% load static %}
+{% block table %}
+{% csrf_token %}
+<table id="ProductUnitTable" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <td>Seleccionar</td>
+      <td>id</td>
+      <td>Código</td>
+      <!-- <td>Nombre</td>
+      <td>Unidad de Medida</td>
+      <td>Cantidad</td>
+      <td>Producto</td>
+      <td>Tipo de Producto</td>
+      <td>Paquete</td>
+      <td>Fijar Cantidad</td>
+      <td>Acciones</td> -->
+    </tr>
+  </thead>
+  <tbody>
+    <!-- {% for product_unit in object_list %}
+    <tr>
+      <td>{{product_unit.code}}</td>
+      <td>{{product_unit.name}}</td>
+      <td>
+        {% if product_unit.product_id.measure_id %}
+          <a href="{% url 'DetailMeasurementUnit' product_unit.product_id.measure_id.id  %}">{{product_unit.product_id.measure_id.name}}</a>
+        {% else %}
+            N/A
+        {% endif %}
+      </td>
+      <td>{{product_unit.quantity}}</td>
+      <td>
+        <a href="{% url 'DetailProduct' product_unit.product_id.id %}">{{product_unit.product_id.name}}</a>
+      </td>
+      <td>{{product_unit.product_id.product_type}}</td>
+      <td>{{product_unit.package_id.code}}</td>
+
+      <td>{{product_unit.fixed_ammount}}</td>
+      <td>
+        {% if not product_unit.quantity %}
+          <a href="{% url 'EditProductUnit' product_unit.id %}" class="btn btn-info btn-circle btn-lg"><i class="far fa-edit"></i></a>
+        {% endif %}
+        <a href="{% url 'DetailProductUnit' product_unit.id %}" class="btn btn-info btn-circle btn-lg"><i class="fas fa-info-circle"></i></a>
+        {% if not product_unit.first_move %}
+        <a href="{% url 'DeleteProductUnit' product_unit.id %}" class="btn btn-danger btn-circle btn-lg"><i class="fas fa-trash"></i></a>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %} -->
+  </tbody>
+</table>
+{% endblock %}
+
+{% block jstables %}
+
+<script>
+  let unit_ids = []; //Lista contenedora de ids de las unidades
+  $(function () {
+
+  var FullTable = $("#ProductUnitTable").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+      "language": {
+        url :'{% static 'lib/datatables/spanish.txt' %}'
+      },
+      ajax: {
+        url: window.location.pathname,
+        type: 'POST',
+        data: {
+          'action': 'datatable'
+        },
+        dataSrc: ""
+      },
+      columns: [
+        null,
+        { "data": "id" },
+        { "data": "code" },
+        ],
+      columnDefs : [
+        {
+          targets: [0],
+          render: function (data, type, row) {
+            var check = ' <input type="checkbox" name="state">'
+            return check;
+          },
+
+        },
+        {
+          targets: [ 1 ],
+          visible: false,
+          searchable: false
+        },
+      ],
+    });
+
+    // Crear Paquetes con las unidades seleccionadas
+    let units = []; //Lista contenedora de las unidades
+
+    $('#ProductUnitTable tbody').on('click', 'input[name="state"]', function () {
+      $('.tooltip').remove();
+      var td = FullTable.cell($(this).closest('td, li')).index(),
+      rows = FullTable.row(td.row).data()
+
+      if( $(this).is(':checked') ){ // Agrega a la la lista de ids el id de la unidad seleccionada
+        units.push(rows);
+        unit_ids.push(rows.id);
+
+
+        $('#create_pckg').removeClass('disabled'); // Al agregar elementos, se habilita el botón
+      } else { // Elimina de la lista de idas la unidad que se seleccione
+        let index = units.indexOf(rows)
+        units.splice(index,1);
+        if (units.length == 0) {
+          $('#create_pckg').addClass('disabled');
+        }
+      }
+
+    });
+    // Botón crear unidades
+    // Envía mediante ajax los ids de la lista
+    $('#create_pckg').on('click', function(){
+      if ( $('#create_pckg').hasClass('disabled') )  { // Si el boton está deshabilitado no pasa nada
+      } else {
+        u2pckg_validate(units)
+      }
+    });
+  });
+</script>
+
+{% endblock %}

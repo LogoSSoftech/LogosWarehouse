@@ -1,0 +1,41 @@
+{% extends "pattern_template.html" %}
+
+{% block header %}
+
+    {% include "headers/list_detail_header.html" %}
+
+{% endblock %}
+
+{% block content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+            {% block button_back %}
+
+            {% endblock %}
+            <div class="card-body">
+              <table id="MinimalTable" class="table table-bordered table-hover">
+
+                  {% block table %}
+
+                  {% endblock %}
+
+              </table>
+            </div>
+        </div>
+        {% block lines %}
+
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+
+    {% include "js/list_detail_js.html" %}
+
+{% endblock %}

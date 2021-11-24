@@ -1,0 +1,77 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{unit_lines}}</h1>
+        </div>
+    </div>
+    <div class="card-body">
+      <table id="FullTable1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td>Código</td>
+                <td>Nombre</td>
+                <td>Cantidad</td>
+                <td>Unidad de Medida</td>
+                <td>Cantidad Fija</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for unit_id in unit_ids %}
+            <tr>
+                <td>
+                    <a href="{% url 'DetailProductUnit' unit_id.id %}"> {{unit_id.code}}</a>
+                </td>
+                <td>{{unit_id.name}}</td>
+                <td>{{unit_id.quantity}}</td>
+                <td>
+                    {% if object.measure_id %}
+                        <a href="{% url 'DetailMeasurementUnit' object.measure_id %}" >{{object.measure_id.name}}</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>{{unit_id.fixed_ammount}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{pckg_lines}}</h1>
+        </div>
+    </div>
+    <div class="card-body">
+      <table id="FullTable2" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td>Código</td>
+                <td>Cantidad</td>
+                <td>Unidad de Medidas</td>
+                <td>Cantidad Fija</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pckg_id in package_ids %}
+            <tr>
+                <td>
+                    <a href="{% url 'DetailProductPackage' pckg_id.id %}"> {{pckg_id.code}}</a>
+                </td>
+                <td>{{pckg_id.unit_qty}}</td>
+                <td>
+                    {% if object.measure_id %}
+                        <a href="{% url 'DetailMeasurementUnit' object.measure_id %}" >{{object.measure_id.name}}</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>{{pckg_id.fixed_ammount}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>

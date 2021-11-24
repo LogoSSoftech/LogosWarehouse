@@ -1,0 +1,53 @@
+{% extends "detail_template.html" %}
+
+{% block button_back %}
+  <div class="card-header">
+    {% if request.user.is_staff %}
+        <a href="{% url 'ListUser' %}" class="btn btn-outline-primary btn-lg">
+        <span class="text">Volver</span>
+        </a>
+    {% endif %}
+</div>
+{% endblock %}
+{% block table %}
+<thead>
+    <tr>
+        <td>Usuario</td>
+        <td>Email</td>
+        <td>Imagen</td>
+        <td>Creado:</td>
+        <td>Ultima Conexión</td>
+        <td>Grupos</td>
+        <td>Permisos</td>
+        <td>Staff</td>
+        <td>Superusuario</td>
+        <td>Activo</td>
+        <td>Acciones</td>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>{{object.username}}</td>
+        <td>{{object.email}}</td>
+        <td class="text-center">
+            {% if user.user_image %}
+            <img src="/media/{{ object.user_image }}" class="img-circle elevation-2" style="width: 100px; height: 100px;" >
+            {% endif %}
+        </td>
+        <td>{{object.date_joined}}</td>
+        <td>{{object.last_login}}</td>
+        <td>{{object.groups}}</td>
+        <td>{{object.user_permissions}}</td>
+        <td>{{object.is_staff}}</td>
+        <td>{{object.is_superuser}}</td>
+        <td>{{object.is_active}}</td>
+        <td>
+            <a href="{% url 'EditUser' user.id %}" class="btn btn-info btn-circle btn-lg" >
+                <i class="far fa-edit"></i>
+
+            </a>
+        </td>
+    </tr>
+</tbody>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{product_lines}}</h1>
+        </div>
+    </div>
+    <div class="card-body">
+      <table id="FullTable1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td>Código</td>
+                <td>Nombre</td>
+                <td>Active</td>
+                <td>Imagen de Producto</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product_id in product_ids %}
+            <tr>
+                <td>
+                    <a href="{% url 'DetailProduct' product_id.id %}">{{product_id.code}}</a>
+                </td>
+                <td>
+                    <a href="{% url 'DetailProduct' product_id.id %}">{{product_id.name}}</a>
+                </td>
+                <td>{{product_id.active}}</td>
+                <td>
+                    <img src="/media/{{product.product_image}}" class="img-circle elevation-2" style="width: 50px; height: 50px;" >
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+  </div>
+</div>

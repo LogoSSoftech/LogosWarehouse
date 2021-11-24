@@ -1,0 +1,78 @@
+{% extends "list_template.html" %}
+{% block table %}
+<thead>
+    <tr>
+        <td>Código</td>
+        <td>Origen</td>
+        <td>Destino</td>
+        <td>Item</td>
+        <td>Tipo de Producto</td>
+        <td>Cantidad</td>
+        <td>Medida</td>
+        <td>Tipo</td>
+        <td>Fecha</td>
+        <td>Usuario</td>
+        <td>Acciones</td>
+    </tr>
+</thead>
+<tbody>
+    {% for move in object_list %}
+    <tr>
+        <td>{{move.code}}</td>
+        <td>
+            <a href="{% url 'DetailStockLocation' move.location_id.id %}">{{move.location_id.name}}</a>
+          </td>
+          <td>
+            <a href="{% url 'DetailStockLocation' move.location_dest_id.id %}">{{move.location_dest_id.name}}</a>
+          </td>
+
+        {% if move.unit_id %}
+            <td>
+                <a href="{% url 'DetailProductUnit' move.unit_id.id %}">{{move.unit_id.name}}</a>
+                <a href="{% url 'DetailProductUnit' move.unit_id.id %}">{{move.unit_id.code}}</a>
+            </td>
+        {% endif %}
+        {% if move.package_id %}
+        <td>
+            <a href="{% url 'DetailProductPackage' move.package_id.id %}">{{move.package_id.code}}</a>
+        </td>
+        {% endif %}
+        {% if move.unit_id %}
+            <td>
+                {{move.unit_id.product_id.product_type}}
+            </td>
+        {% else %}
+        <td>
+            {{move.package_id.product_id.product_type}}
+        </td>
+        {% endif %}
+        {% if move.package_id %}
+            <td>{{move.pieces}}</td>
+        {% elif move.unit_id %}
+            <td>{{move.quantity}}</td>
+        {% endif %}
+        {% if move.unit_id %}
+
+        <td>
+            {% if move.unit_id.unit_id.product_id.measure_id %}
+                <a href="{% url 'DetailMeasurementUnit' move.unit_id.unit_id.product_id.measure_id.id %}" >{{move.unit_id.product_id.measure_id.name}}</a>
+            {% else %}
+                N/A
+            {% endif %}
+        </td>
+        {% elif move.package_id %}
+            <td>Piezas</td>
+        {% endif %}
+        <td>{{move.move_type}}</td>
+        <td>{{move.date}}</td>
+        <td>{{move.user_creator.first_name}} {{move.user_creator.last_name}}</td>
+        <td>
+            <a href="{% url 'DetailStockMove' move.id %}" class="btn btn-info btn-circle btn-lg" >
+                <i class="fas fa-info-circle"></i>
+                </a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock %}
