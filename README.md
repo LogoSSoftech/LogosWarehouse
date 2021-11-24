@@ -23,8 +23,14 @@ Once docker is installed, download the repository:
 ```
 git clone https://github.com/LogoSSoftech/LogosWarehouse.git
 cd LogosWarehouse
+```
+
+
+Build the Project:
+```
 sudo docker-compose -f docker-compose.yml up -d --b
 ```
+
 Go to your favorite browser and go to:
 
 
