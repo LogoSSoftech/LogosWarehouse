@@ -40,7 +40,7 @@ http://0.0.0.0:8000/core/dashboard/
 
 By @DDBCDVD
 
-## Contact Me
+## Contact Us
 
 * [logos.softech@gmail.com](mailto:logos.softech@gmail.com?)
 * [LinkedIn](https://linkedin.com/in/DDBCDVD)
